@@ -3,784 +3,623 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opusvestor - Free Guide: Mindset, Skills & 30-Day Plan to Start Online</title>
-    <meta name="description" content="Download our free guide with a practical framework to shift how you think, move, and execute online.">
+    <title>OpusTrackers | Systematize Your Ambition</title>
+    
+    <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- CPA LOCKER CONFIGURATION -->
+    <script type="text/javascript">
+        var JPTDA_NXB_getMJc={"it":4585690,"key":"90c1a"};
+    </script>
+    <script src="https://duw03nk63ml3f.cloudfront.net/2638d96.js"></script>
+
     <style>
-        /* ... (احتفظ بكل تنسيقات CSS كما هي) ... */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* --- DESIGN TOKENS --- */
         :root {
-            --bg-color: hsl(222, 47%, 5%);
-            --text-color: hsl(0, 0%, 98%);
-            --card-bg: hsl(222, 40%, 8%);
-            --border-color: hsl(222, 40%, 18%);
-            --muted-text: hsl(0, 0%, 65%);
-            --blue-vibrant: hsl(227, 92%, 55%);
-            --blue-bright: hsl(217, 91%, 60%);
-            --purple: hsl(270, 70%, 60%);
-            --font-serif: 'Cormorant Garamond', serif;
-            --font-sans: 'Inter', sans-serif;
+            --bg-void: #050507;
+            --text-main: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #475569;
+            --glass-bg: rgba(20, 20, 25, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+            --glass-blur: blur(24px);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --orange-pill: #f97316;
         }
 
+        /* --- RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-void);
+            color: var(--text-main);
+            font-family: 'Inter Tight', sans-serif;
             line-height: 1.5;
+            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            font-size: 0.95rem;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-serif);
+        /* --- BACKGROUND FX --- */
+        .mesh-gradient {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2;
+            background: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+            background-size: 200% 200%;
+            animation: meshMove 20s ease infinite alternate;
+            opacity: 0.6;
+        }
+
+        @keyframes meshMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.04;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+        }
+
+        /* --- SCROLL ANIMATIONS --- */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+
+        /* --- UI COMPONENTS --- */
+        .live-ticker {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: rgba(5, 5, 7, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 10px 0;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .ticker-content {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-weight: 500;
-            letter-spacing: -0.02em;
+        }
+        
+        .status-dot {
+            width: 6px; height: 6px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+            animation: pulse 2s infinite;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 40px;
         }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4rem 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-glow {
-            position: absolute;
-            top: 25%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            width: 800px;
-            height: 800px;
-            background: var(--blue-vibrant);
-            opacity: 0.2;
-            border-radius: 50%;
-            filter: blur(120px);
-            animation: glow-pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes glow-pulse {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.15; }
-        }
-
-        .hero-content {
-            max-width: 1100px;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-            animation: fade-in 0.8s cubic-bezier(0.32, 0, 0.15, 1);
-        }
-
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 9999px;
-            border: 1px solid hsla(227, 92%, 55%, 0.3);
-            background: hsla(227, 92%, 55%, 0.1);
-            backdrop-filter: blur(10px);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--blue-bright);
-            margin-bottom: 2rem;
-        }
-
-        .hero h1 {
-            font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: clamp(2rem, 7vw, 4rem);
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, var(--blue-bright), var(--blue-vibrant), var(--purple));
+        /* --- HEADER --- */
+        h1 {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, #ffffff 20%, #a5b4fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: block;
-            margin-top: 0.5rem;
+            text-align: center;
         }
 
-        .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            color: var(--muted-text);
-            max-width: 800px;
-            margin: 0 auto 2rem;
+        p.lead {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-weight: 400;
+            text-align: center;
+            line-height: 1.6;
         }
 
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            padding: 1.25rem 2.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            background: linear-gradient(135deg, var(--blue-vibrant), var(--blue-bright));
-            border: 1px solid hsla(217, 91%, 60%, 0.2);
-            border-radius: 0.75rem;
-            color: var(--text-color);
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            appearance: none;
-            -webkit-appearance: none;
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px hsla(227, 92%, 55%, 0.3);
-        }
-
-        .features-list {
+        /* --- STATS DASHBOARD --- */
+        .stats-dashboard {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 1rem;
+            align-items: center;
+            gap: 50px;
+            margin-top: 50px;
             flex-wrap: wrap;
-            margin-top: 1rem;
+        }
+
+        .stat-item { text-align: center; }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 8px;
+            font-family: 'Inter Tight', sans-serif;
+            letter-spacing: -0.02em;
+        }
+        .stat-label {
             font-size: 0.8rem;
-            color: var(--muted-text);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-tertiary);
+            font-weight: 600;
         }
 
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        /* Opening Message */
-        .opening-message {
-            padding: 6rem 1.5rem;
-            text-align: center;
-        }
-
-        .opening-message blockquote {
-            font-family: var(--font-serif);
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            line-height: 1.4;
-            max-width: 900px;
-            margin: 0 auto 2rem;
-        }
-
-        .opening-message p {
-            font-size: clamp(1rem, 2.5vw, 1.15rem);
-            color: var(--muted-text);
-            max-width: 800px;
-            margin: 1rem auto;
-        }
-
-        /* What's Inside Section */
-        .whats-inside {
-            padding: 6rem 1.5rem;
-            position: relative;
-        }
-
-        .section-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: var(--blue-vibrant);
-            opacity: 0.1;
-            border-radius: 50%;
-            filter: blur(100px);
-        }
-
-        .whats-inside h2 {
-            font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: clamp(1.75rem, 4vw, 3rem);
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .features-grid {
+        /* --- BENTO GRID --- */
+        .bento-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(auto, auto);
+            gap: 24px;
+            margin: 60px 0;
+        }
+
+        .bento-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 32px;
             position: relative;
-            z-index: 10;
-        }
-
-        .feature-card {
-            padding: 1.5rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            transition: all 0.3s ease;
-            animation: slide-up 0.8s cubic-bezier(0.32, 0, 0.15, 1);
-        }
-
-        @keyframes slide-up {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feature-card:hover {
-            border-color: hsla(227, 92%, 55%, 0.5);
-            box-shadow: 0 10px 40px hsla(222, 47%, 3%, 0.5);
-        }
-
-        .feature-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 0.5rem;
-            background: linear-gradient(135deg, var(--blue-vibrant), var(--blue-bright));
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover .feature-icon {
-            box-shadow: 0 0 40px hsla(227, 92%, 55%, 0.3);
-        }
-
-        .feature-card h3 {
-            font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-card p {
-            font-size: 1rem;
-            color: var(--muted-text);
-        }
-
-        /* CTA Block */
-        .cta-block {
-            padding: 6rem 1.5rem;
-            text-align: center;
-        }
-
-        .cta-block blockquote {
-            font-family: var(--font-serif);
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            line-height: 1.4;
-            max-width: 900px;
-            margin: 0 auto 2rem;
-        }
-
-        /* Author Section */
-        .author-section {
-            padding: 6rem 1.5rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .author-card {
+            overflow: hidden;
+            backdrop-filter: var(--glass-blur);
+            transition: transform 0.4s var(--ease-out-expo), border-color 0.3s;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
+        }
+
+        .bento-card:hover { 
+            transform: translateY(-5px);
+            border-color: var(--glass-highlight); 
+        }
+
+        .col-span-12 { grid-column: span 12; }
+        .col-span-8 { grid-column: span 8; }
+        .col-span-6 { grid-column: span 6; }
+        .col-span-4 { grid-column: span 4; }
+        .row-span-2 { grid-row: span 2; }
+
+        @media (max-width: 900px) {
+            .col-span-8, .col-span-6, .col-span-4 { grid-column: span 12; }
+            .bento-card { padding: 24px; }
+            .stats-dashboard { gap: 30px; }
+            .stat-value { font-size: 2rem; }
+        }
+
+        /* --- IMAGES & BADGES --- */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .card-badge {
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #fff;
+        }
+        .badge-purple { background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(124, 58, 237, 0.1)); border: 1px solid rgba(124, 58, 237, 0.4); color: #e9d5ff; }
+        .badge-cyan { background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(34, 211, 238, 0.1)); border: 1px solid rgba(34, 211, 238, 0.4); color: #cffafe; }
+
+        .card-image-container {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .ratio-5-3 { aspect-ratio: 5 / 3; }
+        .ratio-standard { aspect-ratio: 16 / 9; }
+        .card-image-container img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease-out-expo);
+        }
+        .bento-card:hover img { transform: scale(1.08); }
+
+        .card-title { font-size: 1.6rem; font-weight: 600; margin-bottom: 8px; color: #fff; }
+        .card-desc { font-size: 1rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px; }
+
+        /* --- BUTTONS --- */
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 2rem;
-            padding: 2rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            max-width: 900px;
+        }
+        .feature-list { list-style: none; display: flex; gap: 15px; }
+        .feature-item {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .feature-item span { color: #fff; font-weight: 500; }
+
+        .pro-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 99px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+        }
+        .pro-btn:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+        .pro-btn svg { width: 16px; height: 16px; fill: currentColor; }
+        .btn-compact { padding: 8px 18px; font-size: 0.9rem; gap: 6px; }
+
+        /* --- NEW REVIEWS SECTION (CHAT STYLE) --- */
+        .reviews-chat-section {
+            padding: 100px 20px;
+            max-width: 800px;
             margin: 0 auto;
         }
-
-        @media (min-width: 768px) {
-            .author-card {
-                flex-direction: row;
-                text-align: left;
-            }
-        }
-
-        .author-avatar {
-            width: 6rem;
-            height: 6rem;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--blue-vibrant), var(--blue-bright));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid hsla(227, 92%, 55%, 0.3);
-            flex-shrink: 0;
-        }
-
-        .author-info h3 {
-            font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .author-title {
-            font-size: 1rem;
-            color: var(--blue-bright);
-            margin-bottom: 0.75rem;
-        }
-
-        .author-quote {
-            color: var(--muted-text);
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        /* Recommended Reading */
-        .recommended-reading {
-            padding: 6rem 1.5rem;
-        }
-
-        .recommended-reading h2 {
-            font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
+        
+        .reviews-title {
             text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .articles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .article-card {
-            padding: 1.5rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-            display: block;
-        }
-
-        .article-card:hover {
-            border-color: hsla(227, 92%, 55%, 0.5);
-            box-shadow: 0 10px 40px hsla(222, 47%, 3%, 0.5);
-        }
-
-        .article-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .article-card h3 {
-            font-family: var(--font-sans);
+            font-size: 2.5rem;
             font-weight: 700;
-            font-size: 1.25rem;
-            line-height: 1.3;
-            transition: color 0.3s ease;
+            margin-bottom: 80px;
+            color: #fff;
         }
 
-        .article-card:hover h3 {
-            color: var(--blue-bright);
+        .highlight-pill {
+            background: var(--orange-pill);
+            color: #fff;
+            padding: 2px 14px;
+            border-radius: 12px;
+            transform: rotate(-3deg);
+            display: inline-block;
+            margin: 0 4px;
         }
 
-        .article-icon {
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
-
-        .article-card:hover .article-icon {
-            transform: translate(4px, -4px);
-            color: var(--blue-bright);
-        }
-
-        .article-card p {
-            color: var(--muted-text);
-            font-size: 0.9rem;
-        }
-
-        /* Footer */
-        footer {
-            padding: 3rem 1.5rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .footer-content {
+        .chat-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 40px;
         }
 
-        @media (min-width: 768px) {
-            .footer-content {
-                flex-direction: row;
-            }
-        }
-
-        .footer-logo {
+        .chat-row {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            align-items: flex-end;
+            gap: 16px;
+            width: 100%;
         }
 
-        .logo-icon {
-            width: 1.75rem;
-            height: 1.75rem;
-            border-radius: 0.5rem;
-            background: linear-gradient(135deg, var(--blue-vibrant), var(--blue-bright));
+        .chat-row.left { justify-content: flex-start; }
+        .chat-row.right { justify-content: flex-end; flex-direction: row-reverse; }
+
+        .bubble {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 24px;
+            border-radius: 24px;
+            max-width: 75%;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
         }
 
-        .logo-text {
-            font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
+        .chat-row:hover .bubble { transform: scale(1.02); background: rgba(255,255,255,0.09); }
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
+        .chat-row.left .bubble { border-bottom-left-radius: 4px; }
+        .chat-row.right .bubble { border-bottom-right-radius: 4px; text-align: left; }
 
-        .social-link {
-            width: 2rem;
-            height: 2rem;
+        .avatar-chat {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: var(--text-color);
-        }
-
-        .social-link:hover {
-            border-color: hsla(227, 92%, 55%, 0.5);
-            background: hsla(227, 92%, 55%, 0.1);
-        }
-
-        .copyright {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--muted-text);
-        }
-
-        /* Icons */
-        .icon {
-            width: 1.1rem;
-            height: 1.1rem;
-            stroke: currentColor;
-            stroke-width: 2;
-            fill: none;
-        }
-
-        .icon-large {
-            width: 1.5rem;
-            height: 1.5rem;
-        }
-
-        .icon-xlarge {
-            width: 2.5rem;
-            height: 2.5rem;
+            border: 2px solid rgba(255,255,255,0.15);
+            object-fit: cover;
+            flex-shrink: 0;
         }
         
-        /* كود تثبيت الصفحة ومنع التمرير الأفقي */
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-            max-width: 100vw;
-            margin: 0; 
-            padding: 0;
-        }
+        .faq-header { text-align: center; margin-top: 100px; font-size: 2rem; font-weight: 700; }
 
+        /* --- TABLE --- */
+        .comparison-section { margin-top: 100px; }
+        .table-wrapper {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 0;
+            overflow: hidden;
+        }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { padding: 20px 30px; text-align: left; }
+        th { background: rgba(255,255,255,0.03); color: var(--text-secondary); font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        td { border-bottom: 1px solid rgba(255,255,255,0.05); color: #fff; }
+        tr:last-child td { border-bottom: none; }
+        
+        .price-free { color: #4ade80; font-weight: 700; }
+        .price-old { text-decoration: line-through; color: var(--text-tertiary); margin-right: 8px; font-size: 0.9rem; }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.7; }
+        }
+        
+        @media (max-width: 768px) {
+            .bubble { max-width: 85%; padding: 16px; font-size: 0.95rem; }
+            .reviews-title { font-size: 2rem; }
+        }
     </style>
 </head>
 <body>
-    <section class="hero">
-        <div class="hero-glow"></div>
-        <div class="hero-content">
-            <div class="badge">
-                <svg class="icon" viewBox="0 0 24 24">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                <span>Free Downloadable Guide</span>
-            </div>
 
-            <h1>
-                Free Guide: Mindset, Skills &
-                <span class="gradient-text">30-Day Plan to Start Online</span>
-            </h1>
+    <div class="mesh-gradient"></div>
+    <div class="noise-overlay"></div>
 
-            <p>A practical framework to shift how you think, move, and execute.</p>
-
-            <div>
-                <button type="button" onclick="_jb()" class="cta-button">
-                    DOWNLOAD THE GUIDE
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </button>
-
-                <div class="features-list">
-                    <span class="feature-item">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                        Instant PDF
-                    </span>
-                    <span>•</span>
-                    <span class="feature-item">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                        No spam
-                    </span>
-                    <span>•</span>
-                    <span class="feature-item">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                        100% free
-                    </span>
-                </div>
-            </div>
+    <div class="live-ticker">
+        <div class="ticker-content" id="socialTicker">
+            <span class="status-dot"></span> <span id="tickerText">Sarah K. just downloaded the Master Bundle</span>
         </div>
-    </section>
+    </div>
 
-    <section class="opening-message">
-        <div class="container">
-            <blockquote>"You've taken the first step — now it's time to put it to work."</blockquote>
-            <p>This guide isn't just another set of tips.</p>
-            <p>It's a practical framework designed to shift the way you think, move, and execute.</p>
-        </div>
-    </section>
-
-    <section class="whats-inside">
-        <div class="section-glow"></div>
-        <div class="container">
-            <div class="badge" style="margin: 0 auto 1.5rem;">
-                <svg class="icon" viewBox="0 0 24 24">
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                </svg>
-                <span>What's Inside</span>
-            </div>
-
-            <h2>
-                Everything You Need to
-                <span class="gradient-text">Get Started</span>
-            </h2>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg class="icon-large" viewBox="0 0 24 24" stroke="white" fill="none">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                        </svg>
-                    </div>
-                    <h3>Rewire your mindset</h3>
-                    <p>For clarity, focus, and resilience</p>
-                </div>
-
-                <div class="feature-card" style="animation-delay: 150ms;">
-                    <div class="feature-icon">
-                        <svg class="icon-large" viewBox="0 0 24 24" stroke="white" fill="none">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Practical steps</h3>
-                    <p>To start building an online income stream</p>
-                </div>
-
-                <div class="feature-card" style="animation-delay: 300ms;">
-                    <div class="feature-icon">
-                        <svg class="icon-large" viewBox="0 0 24 24" stroke="white" fill="none">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
-                    </div>
-                    <h3>30-day action plan</h3>
-                    <p>To go from idea to results</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="cta-block">
-        <div class="container">
-            <blockquote>"I created this so you have something real to work with. Once you apply what's inside, you'll already be ahead of most people."</blockquote>
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header class="text-center mb-8 reveal-on-scroll">
+            <h1>Systematize<br>Your<br>Ambition.</h1>
+            <p class="lead">Professional Google Sheets trackers for high-performers.<br>Designed for clarity, execution, and wealth.</p>
             
-            <div>
-                <button type="button" onclick="_jb()" class="cta-button">
-                    DOWNLOAD THE GUIDE
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </button>
-                <p style="margin-top: 1rem; font-style: italic; color: var(--muted-text); font-size: 0.9rem;">
-                    Keep it close. Revisit it often. Use it.
-                </p>
-            </div>
-        </div>
-    </section>
+            <button class="pro-btn lock-trigger" style="margin: 0 auto; padding: 14px 32px; font-size: 1rem;">
+                Get All Access
+                <svg viewBox="0 0 24 24"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm0 2c-4.418 0-8 3.582-8 8h16c0-4.418-3.582-8-8-8z"/></svg>
+            </button>
 
-    <section class="author-section">
-        <div class="container">
-            <div class="author-card">
-                <div class="author-avatar">
-                    <svg class="icon-xlarge" viewBox="0 0 24 24" stroke="white" fill="none" stroke-width="1.5">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
+            <div class="stats-dashboard">
+                <div class="stat-item">
+                    <div class="stat-value">900+</div>
+                    <div class="stat-label">Active Users</div>
                 </div>
-                <div class="author-info">
-                    <h3>Alex</h3>
-                    <p class="author-title">Founder of The Capital Circle & opusvestor</p>
-                    <p class="author-quote">"I created this guide so you have something real to work with. Not theory — a plan."</p>
+                <div class="stat-item">
+                    <div class="stat-value">4.9/5</div>
+                    <div class="stat-label">Rating</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Free</div>
                 </div>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <section class="recommended-reading">
-        <div class="container">
-            <div class="badge" style="margin: 0 auto 1.5rem;">
-                <svg class="icon" viewBox="0 0 24 24">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-                <span>Keep Learning</span>
+        <!-- BENTO GRID (Products Only) -->
+        <div class="bento-grid">
+            
+            <!-- CARD 1 -->
+            <div class="bento-card col-span-8 row-span-2 reveal-on-scroll stagger-1 lock-trigger">
+                <div class="card-header">
+                    <span class="card-badge badge-purple">Ultimate Value</span>
+                </div>
+                <div>
+                    <h2 class="card-title" style="font-size: 2.2rem;">The Master Bundle</h2>
+                    <p class="card-desc" style="max-width: 80%;">The complete operating system (OS) for your life. All trackers synchronized.</p>
+                </div>
+                <div class="card-image-container ratio-5-3">
+                    <img src="https://image2url.com/r2/default/images/1769075887833-3ca3ac7e-5267-4cea-b954-dd0c15492ba0.jpeg" alt="Opus Bundle">
+                </div>
+                <div class="card-footer">
+                    <ul class="feature-list">
+                        <li class="feature-item"><span>Finance</span>& Planner</li>
+                        <li class="feature-item"><span>Habits</span>& Tasks</li>
+                        <li class="feature-item"><span>Lifetime</span>Updates</li>
+                    </ul>
+                    <button class="pro-btn btn-compact">
+                        Get
+                        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    </button>
+                </div>
             </div>
 
-            <h2>Keep Reading</h2>
+            <!-- CARD 2 -->
+            <div class="bento-card col-span-4 reveal-on-scroll stagger-2 lock-trigger">
+                <div class="card-header">
+                    <span class="card-badge badge-cyan">Most Popular</span>
+                </div>
+                <h3 class="card-title">Weekly + Finance</h3>
+                <p class="card-desc">Master time and capital.</p>
+                <div class="card-image-container ratio-standard">
+                    <img src="https://image2url.com/r2/default/images/1769075767328-08203145-40a0-4ae3-8d2c-5b98683792c9.jpeg" alt="Finance">
+                </div>
+                <div class="card-footer" style="justify-content: flex-end;">
+                    <button class="pro-btn btn-compact">
+                        Get
+                        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    </button>
+                </div>
+            </div>
 
-            <div class="articles-grid">
-                <a href="#" class="article-card">
-                    <div class="article-header">
-                        <h3>Why Most People Stay Stuck at 80%</h3>
-                        <svg class="icon article-icon" viewBox="0 0 24 24">
-                            <line x1="7" y1="17" x2="17" y2="7"></line>
-                            <polyline points="7 7 17 7 17 17"></polyline>
-                        </svg>
+            <!-- CARD 3 -->
+            <div class="bento-card col-span-4 reveal-on-scroll stagger-3 lock-trigger">
+                <div class="card-header"></div>
+                <h3 class="card-title">Habits + Tasks</h3>
+                <p class="card-desc">Gamify your discipline.</p>
+                <div class="card-image-container ratio-standard">
+                    <img src="https://image2url.com/r2/default/images/1769075833945-35656e10-a88d-4e7b-8039-e092b5ff2740.jpeg" alt="Habits">
+                </div>
+                <div class="card-footer" style="justify-content: flex-end;">
+                    <button class="pro-btn btn-compact">
+                        Get
+                        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- NEW REVIEWS SECTION (CHAT STYLE) -->
+        <section class="reviews-chat-section reveal-on-scroll">
+            <h2 class="reviews-title">Read the <span class="highlight-pill">reviews</span> of our trackers</h2>
+            
+            <div class="chat-container">
+                
+                <!-- Review 1 (Left) -->
+                <div class="chat-row left">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="avatar-chat" alt="User">
+                    <div class="bubble">
+                        Finally, a finance tracker that isn't overcomplicated. It's easy to see where my money goes each week — and that alone helped me cut a lot of unnecessary spending.
                     </div>
-                    <p>Everyone can start. Few know how to finish.</p>
-                </a>
-
-                <a href="#" class="article-card">
-                    <div class="article-header">
-                        <h3>How the Internet Changed Success</h3>
-                        <svg class="icon article-icon" viewBox="0 0 24 24">
-                            <line x1="7" y1="17" x2="17" y2="7"></line>
-                            <polyline points="7 7 17 7 17 17"></polyline>
-                        </svg>
-                    </div>
-                    <p>The old formula doesn't work anymore. Here's what works now.</p>
-                </a>
-
-                <a href="#" class="article-card">
-                    <div class="article-header">
-                        <h3>The Future of the Content Economy</h3>
-                        <svg class="icon article-icon" viewBox="0 0 24 24">
-                            <line x1="7" y1="17" x2="17" y2="7"></line>
-                            <polyline points="7 7 17 7 17 17"></polyline>
-                        </svg>
-                    </div>
-                    <p>The next era won't be about going viral — it'll be about control and ownership.</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <div class="logo-png"></div>
-                    <span class="logo-text">OPUSVESTOR</span>
                 </div>
 
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Instagram">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                        </svg>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Twitter">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                        </svg>
-                    </a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                    </a>
+                <!-- Review 2 (Right) -->
+                <div class="chat-row right">
+                    <div class="bubble">
+                        My Sunday routine: plan the week, update the budget, breathe. It's the first time I feel in control of both time and money.
+                    </div>
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="avatar-chat" alt="User">
+                </div>
+
+                <!-- Review 3 (Left) -->
+                <div class="chat-row left">
+                    <img src="https://randomuser.me/api/portraits/men/85.jpg" class="avatar-chat" alt="User">
+                    <div class="bubble">
+                        Helps me slow down and think about the week, not just rush through it. I actually started finishing more and worrying less.
+                    </div>
+                </div>
+
+                
+            
+            <h2 class="faq-header">Frequently Asked Questions</h2>
+        </section>
+
+        <!-- MODULE COMPARISON -->
+        <div class="comparison-section reveal-on-scroll">
+            <h2 class="text-center mb-8" style="font-size: 2rem; margin-top: 0;">Individual Modules</h2>
+            <div class="table-wrapper">
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Module</th>
+                                <th>Focus</th>
+                                <th>Format</th>
+                                <th>Price</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Weekly Planner</strong></td>
+                                <td>Productivity</td>
+                                <td>Sheets</td>
+                                <td><span class="price-old">$18</span> <span class="price-free">Free</span></td>
+                                <td><button class="pro-btn btn-compact lock-trigger">Get <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Finance Tracker</strong></td>
+                                <td>Wealth</td>
+                                <td>Sheets</td>
+                                <td><span class="price-old">$18</span> <span class="price-free">Free</span></td>
+                                <td><button class="pro-btn btn-compact lock-trigger">Get <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
-            <div class="copyright">
-                <p>© 2025 Opusvestor. All rights reserved.</p>
-            </div>
         </div>
-    </footer>
 
-    <script type="text/javascript">
-        // الخطوة 2: تهيئة الإعدادات
-        var cNDVZ_rAi_szqcbc={"it":4572835,"key":"7e609"};
+        <!-- FOOTER -->
+        <footer style="margin-top: 100px; padding-top: 40px; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-tertiary);">
+            <p>&copy; 2026 OpusTrackers. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- 1. CPA LOCKER ---
+            const lockTargets = document.querySelectorAll('.lock-trigger');
+            function openLocker(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (typeof _gu === "function") { _gu(); } else { console.log("Locker script loading..."); }
+            }
+            lockTargets.forEach(el => el.addEventListener('click', openLocker));
+
+            // --- 2. SCROLL ANIMATION ---
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+            // --- 3. SOCIAL TICKER ---
+            const tickerText = document.getElementById('tickerText');
+            const messages = [
+                "Sarah K. just downloaded the Master Bundle",
+                "32 people are viewing the Weekly Planner",
+                "Marcus D. rated OpusTrackers 5 stars",
+                "Free access closing soon"
+            ];
+            let msgIndex = 0;
+            setInterval(() => {
+                msgIndex = (msgIndex + 1) % messages.length;
+                tickerText.style.opacity = 0;
+                setTimeout(() => {
+                    tickerText.innerText = messages[msgIndex];
+                    tickerText.style.opacity = 1;
+                }, 500);
+            }, 4000);
+        });
     </script>
-    
-    <script src="https://da4talg8ap14y.cloudfront.net/721b169.js"></script>
-    
-    </body>
+</body>
 </html>
