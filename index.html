@@ -10,7 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     
-    <!-- CPA LOCKER CONFIGURATION -->
     <script type="text/javascript">
     var FlqOD_Sep_vFhscc={"it":4585745,"key":"694c6"};
 </script>
@@ -120,6 +119,11 @@
         }
 
         /* --- HEADER --- */
+        /* Updated margin-top here for spacing */
+        header.spacing-fix {
+            margin-top: 120px;
+        }
+
         h1 {
             font-size: clamp(3.5rem, 8vw, 6rem);
             font-weight: 800;
@@ -365,7 +369,81 @@
             flex-shrink: 0;
         }
         
-        .faq-header { text-align: center; margin-top: 100px; font-size: 2rem; font-weight: 700; }
+        .faq-header { text-align: center; margin-top: 100px; font-size: 2rem; font-weight: 700; margin-bottom: 40px; }
+
+        /* --- FAQ PRO DESIGN --- */
+        .faq-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .faq-item:hover {
+            border-color: var(--glass-highlight);
+            transform: translateY(-2px);
+        }
+
+        .faq-item.active {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .faq-question {
+            padding: 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            user-select: none;
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+            color: #fff;
+        }
+
+        .faq-answer {
+            padding: 0 24px;
+            max-height: 0;
+            overflow: hidden;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            transition: all 0.4s var(--ease-out-expo);
+            opacity: 0;
+        }
+
+        .faq-item.active .faq-answer {
+            padding-bottom: 24px;
+            max-height: 200px;
+            opacity: 1;
+        }
 
         /* --- TABLE --- */
         .comparison-section { margin-top: 100px; }
@@ -394,6 +472,7 @@
         @media (max-width: 768px) {
             .bubble { max-width: 85%; padding: 16px; font-size: 0.95rem; }
             .reviews-title { font-size: 2rem; }
+            header.spacing-fix { margin-top: 100px; }
         }
     </style>
 </head>
@@ -411,7 +490,8 @@
     <div class="container">
         
         <!-- HEADER -->
-        <header class="text-center mb-8 reveal-on-scroll">
+        <!-- Added class 'spacing-fix' for visual separation requested -->
+        <header class="text-center mb-8 reveal-on-scroll spacing-fix">
             <h1>Systematize<br>Your<br>Ambition.</h1>
             <p class="lead">Professional Google Sheets trackers for high-performers.<br>Designed for clarity, execution, and wealth.</p>
             
@@ -529,10 +609,55 @@
                         Helps me slow down and think about the week, not just rush through it. I actually started finishing more and worrying less.
                     </div>
                 </div>
-
-                
+            </div> <!-- End Chat Container -->
             
             <h2 class="faq-header">Frequently Asked Questions</h2>
+            
+            <!-- NEW PRO DESIGN FAQ SECTION -->
+            <div class="faq-wrapper">
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is this compatible with Microsoft Excel?
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        The Master Bundle is designed specifically for Google Sheets to maximize automation and mobile accessibility. While you can export to Excel, some advanced automation features function best in the Google ecosystem.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do I need to be a spreadsheet expert?
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Not at all. We have designed these trackers to be "plug and play." You simply input your raw data (expenses, tasks), and the dashboards, charts, and calculations update automatically.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I receive the product?
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Instantly. After completing the action, you will be redirected to a copy link that adds the trackers directly to your personal Google Drive.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is this a monthly subscription?
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        No. This is a one-time access. Once you have the trackers, they are yours to keep, duplicate, and use forever.
+                    </div>
+                </div>
+
+            </div>
+
         </section>
 
         <!-- MODULE COMPARISON -->
@@ -619,6 +744,24 @@
                     tickerText.style.opacity = 1;
                 }, 500);
             }, 4000);
+
+            // --- 4. FAQ ACCORDION LOGIC (NEW) ---
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Close other items (optional - remove this block if you want multiple open)
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle current
+                    item.classList.toggle('active');
+                });
+            });
         });
     </script>
 </body>
