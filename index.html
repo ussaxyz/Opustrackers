@@ -37,7 +37,7 @@
             background-color: var(--bg-void);
             color: var(--text-main);
             font-family: 'Inter Tight', sans-serif;
-            line-height: 1.5;
+            line-height: 1.4; /* Tighter global line height */
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
@@ -71,13 +71,18 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
         }
 
-        /* --- SCROLL ANIMATIONS --- */
+        /* --- ANIMATIONS --- */
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(40px) scale(0.98);
-            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            filter: blur(12px);
+            transform: translateY(40px) scale(0.96);
+            transition: all 1s var(--ease-out-expo);
         }
-        .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+        .reveal-on-scroll.is-visible { 
+            opacity: 1; 
+            filter: blur(0);
+            transform: translateY(0) scale(1); 
+        }
         .stagger-1 { transition-delay: 0.1s; }
         .stagger-2 { transition-delay: 0.2s; }
         .stagger-3 { transition-delay: 0.3s; }
@@ -119,13 +124,12 @@
         }
 
         /* --- HEADER --- */
-        /* Updated margin-top here for spacing */
         header.spacing-fix {
             margin-top: 120px;
         }
 
         h1 {
-            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-size: clamp(3rem, 7vw, 5.5rem); /* Slightly smaller clamp */
             font-weight: 800;
             letter-spacing: -0.04em;
             line-height: 1.05;
@@ -137,39 +141,39 @@
         }
 
         p.lead {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto 30px;
             font-weight: 400;
             text-align: center;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
-        /* --- STATS DASHBOARD --- */
+        /* --- STATS --- */
         .stats-dashboard {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 50px;
-            margin-top: 50px;
+            gap: 40px;
+            margin-top: 40px;
             flex-wrap: wrap;
         }
 
-        .stat-item { text-align: center; }
+        .stat-item { text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .stat-icon { color: var(--text-tertiary); width: 20px; height: 20px; margin-bottom: 6px; opacity: 0.7; }
         .stat-value {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: #fff;
             line-height: 1;
-            margin-bottom: 8px;
-            font-family: 'Inter Tight', sans-serif;
+            margin-bottom: 4px;
             letter-spacing: -0.02em;
         }
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             color: var(--text-tertiary);
             font-weight: 600;
         }
@@ -179,15 +183,15 @@
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             grid-auto-rows: minmax(auto, auto);
-            gap: 24px;
-            margin: 60px 0;
+            gap: 20px;
+            margin: 50px 0;
         }
 
         .bento-card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
-            padding: 32px;
+            padding: 28px; /* Tighter padding */
             position: relative;
             overflow: hidden;
             backdrop-filter: var(--glass-blur);
@@ -210,9 +214,9 @@
 
         @media (max-width: 900px) {
             .col-span-8, .col-span-6, .col-span-4 { grid-column: span 12; }
-            .bento-card { padding: 24px; }
-            .stats-dashboard { gap: 30px; }
-            .stat-value { font-size: 2rem; }
+            .bento-card { padding: 24px; } /* Mobile padding */
+            .stats-dashboard { gap: 24px; }
+            .stat-value { font-size: 1.8rem; }
         }
 
         /* --- IMAGES & BADGES --- */
@@ -220,26 +224,29 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 12px; /* Tighter gap between badge and title */
         }
 
         .card-badge {
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 100px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         .badge-purple { background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(124, 58, 237, 0.1)); border: 1px solid rgba(124, 58, 237, 0.4); color: #e9d5ff; }
         .badge-cyan { background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(34, 211, 238, 0.1)); border: 1px solid rgba(34, 211, 238, 0.4); color: #cffafe; }
 
         .card-image-container {
             width: 100%;
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             border: 1px solid rgba(255,255,255,0.05);
             box-shadow: 0 15px 30px rgba(0,0,0,0.3);
             position: relative;
@@ -253,42 +260,86 @@
         }
         .bento-card:hover img { transform: scale(1.08); }
 
-        .card-title { font-size: 1.6rem; font-weight: 600; margin-bottom: 8px; color: #fff; }
-        .card-desc { font-size: 1rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px; }
+        /* FIXED TITLE SIZES */
+        .card-title { 
+            font-size: 1.4rem; /* Smaller, standard size */
+            font-weight: 800; /* Bolder */
+            margin-bottom: 6px; 
+            color: #fff; 
+            line-height: 1.1; 
+            letter-spacing: -0.01em;
+        }
+        
+        /* Specific override for the main bundle title to make it slightly bigger but not huge */
+        .col-span-8 .card-title {
+            font-size: 1.75rem; 
+        }
 
-        /* --- BUTTONS --- */
+        .card-desc { 
+            font-size: 0.95rem; 
+            color: var(--text-secondary); 
+            line-height: 1.4; 
+            margin-bottom: 16px; /* Reduced margin */
+        }
+
+        /* --- FOOTER & BUTTONS --- */
         .card-footer {
             margin-top: auto;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end; /* Align bottom to match button */
         }
-        .feature-list { list-style: none; display: flex; gap: 15px; }
+        
+        .feature-list { 
+            list-style: none; 
+            display: flex; 
+            gap: 16px; 
+            flex-wrap: wrap;
+        }
+        
         .feature-item {
-            font-size: 0.85rem;
+            font-size: 0.75rem; /* Smaller text for cleaner look */
             color: var(--text-secondary);
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
+            line-height: 1.2;
         }
-        .feature-item span { color: #fff; font-weight: 500; }
+        
+        .feature-icon-svg {
+            width: 16px; 
+            height: 16px; 
+            stroke: #fff; 
+            opacity: 0.9;
+            stroke-width: 2;
+            margin-bottom: 2px;
+        }
+        
+        .feature-item span { 
+            color: #fff; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 4px; 
+        }
 
         .pro-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
-            padding: 10px 24px;
+            padding: 8px 20px;
             border-radius: 99px;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             border: 1px solid rgba(255,255,255,0.15);
             transition: all 0.3s ease;
             cursor: pointer;
             backdrop-filter: blur(4px);
+            white-space: nowrap;
         }
         .pro-btn:hover {
             background: #fff;
@@ -296,21 +347,21 @@
             transform: translateY(-2px);
             box-shadow: 0 0 20px rgba(255,255,255,0.4);
         }
-        .pro-btn svg { width: 16px; height: 16px; fill: currentColor; }
-        .btn-compact { padding: 8px 18px; font-size: 0.9rem; gap: 6px; }
+        .pro-btn svg { width: 14px; height: 14px; fill: currentColor; }
+        .btn-compact { padding: 8px 16px; font-size: 0.85rem; }
 
-        /* --- NEW REVIEWS SECTION (CHAT STYLE) --- */
+        /* --- REVIEWS --- */
         .reviews-chat-section {
-            padding: 100px 20px;
-            max-width: 800px;
+            padding: 80px 20px;
+            max-width: 650px;
             margin: 0 auto;
         }
         
         .reviews-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 80px;
+            margin-bottom: 50px;
             color: #fff;
         }
 
@@ -327,13 +378,13 @@
         .chat-container {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 20px;
         }
 
         .chat-row {
             display: flex;
             align-items: flex-end;
-            gap: 16px;
+            gap: 12px;
             width: 100%;
         }
 
@@ -341,37 +392,46 @@
         .chat-row.right { justify-content: flex-end; flex-direction: row-reverse; }
 
         .bubble {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 24px;
-            border-radius: 24px;
-            max-width: 75%;
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: #e2e8f0;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 14px 20px;
+            border-radius: 18px;
+            max-width: 80%;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #cbd5e1;
             position: relative;
             backdrop-filter: blur(10px);
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.4);
             transition: transform 0.3s ease;
         }
+        
+        .bubble strong {
+            display: block;
+            color: #fff;
+            font-size: 0.75rem;
+            margin-bottom: 4px;
+            opacity: 0.6;
+            font-weight: 600;
+        }
 
-        .chat-row:hover .bubble { transform: scale(1.02); background: rgba(255,255,255,0.09); }
+        .chat-row:hover .bubble { transform: scale(1.02); background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.2); }
 
         .chat-row.left .bubble { border-bottom-left-radius: 4px; }
         .chat-row.right .bubble { border-bottom-right-radius: 4px; text-align: left; }
 
         .avatar-chat {
-            width: 48px;
-            height: 48px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
             object-fit: cover;
             flex-shrink: 0;
         }
         
         .faq-header { text-align: center; margin-top: 100px; font-size: 2rem; font-weight: 700; margin-bottom: 40px; }
 
-        /* --- FAQ PRO DESIGN --- */
+        /* --- FAQ --- */
         .faq-wrapper {
             display: flex;
             flex-direction: column;
@@ -462,6 +522,8 @@
         
         .price-free { color: #4ade80; font-weight: 700; }
         .price-old { text-decoration: line-through; color: var(--text-tertiary); margin-right: 8px; font-size: 0.9rem; }
+        
+        .check-icon { width: 16px; height: 16px; color: #4ade80; margin-right: 6px; vertical-align: middle; }
 
         @keyframes pulse {
             0% { transform: scale(0.95); opacity: 0.7; }
@@ -470,9 +532,13 @@
         }
         
         @media (max-width: 768px) {
-            .bubble { max-width: 85%; padding: 16px; font-size: 0.95rem; }
+            .bubble { max-width: 85%; padding: 14px; font-size: 0.85rem; }
             .reviews-title { font-size: 2rem; }
             header.spacing-fix { margin-top: 100px; }
+            
+            /* Tweak feature list spacing on mobile */
+            .feature-list { gap: 10px; }
+            .feature-item { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -490,7 +556,6 @@
     <div class="container">
         
         <!-- HEADER -->
-        <!-- Added class 'spacing-fix' for visual separation requested -->
         <header class="text-center mb-8 reveal-on-scroll spacing-fix">
             <h1>Systematize<br>Your<br>Ambition.</h1>
             <p class="lead">Professional Google Sheets trackers for high-performers.<br>Designed for clarity, execution, and wealth.</p>
@@ -502,41 +567,67 @@
 
             <div class="stats-dashboard">
                 <div class="stat-item">
+                    <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                     <div class="stat-value">900+</div>
                     <div class="stat-label">Active Users</div>
                 </div>
                 <div class="stat-item">
+                    <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
                     <div class="stat-value">4.9/5</div>
                     <div class="stat-label">Rating</div>
                 </div>
                 <div class="stat-item">
+                    <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
                     <div class="stat-value">100%</div>
                     <div class="stat-label">Free</div>
                 </div>
             </div>
         </header>
 
-        <!-- BENTO GRID (Products Only) -->
+        <!-- BENTO GRID -->
         <div class="bento-grid">
             
-            <!-- CARD 1 -->
+            <!-- CARD 1: Master Bundle (FIXED) -->
             <div class="bento-card col-span-8 row-span-2 reveal-on-scroll stagger-1 lock-trigger">
                 <div class="card-header">
-                    <span class="card-badge badge-purple">Ultimate Value</span>
+                    <span class="card-badge badge-purple">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        Ultimate Value
+                    </span>
                 </div>
                 <div>
-                    <h2 class="card-title" style="font-size: 2.2rem;">The Master Bundle</h2>
-                    <p class="card-desc" style="max-width: 80%;">The complete operating system (OS) for your life. All trackers synchronized.</p>
+                    <!-- Title tightened and size reduced slightly, but bold maintained -->
+                    <h2 class="card-title">The Master Bundle</h2>
+                    <p class="card-desc" style="max-width: 90%;">The complete operating system (OS) for your life. All trackers synchronized.</p>
                 </div>
                 <div class="card-image-container ratio-5-3">
                     <img src="https://image2url.com/r2/default/images/1769075887833-3ca3ac7e-5267-4cea-b954-dd0c15492ba0.jpeg" alt="Opus Bundle">
                 </div>
                 <div class="card-footer">
                     <ul class="feature-list">
-                        <li class="feature-item"><span>Finance</span>& Planner</li>
-                        <li class="feature-item"><span>Habits</span>& Tasks</li>
-                        <li class="feature-item"><span>Lifetime</span>Updates</li>
+                        <li class="feature-item">
+                            <span>
+                                <svg class="feature-icon-svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                Finance
+                            </span>
+                            & Planner
+                        </li>
+                        <li class="feature-item">
+                            <span>
+                                <svg class="feature-icon-svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                                Habits
+                            </span>
+                            & Tasks
+                        </li>
+                        <li class="feature-item">
+                            <span>
+                                <svg class="feature-icon-svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                Lifetime
+                            </span>
+                            Updates
+                        </li>
                     </ul>
+                    <!-- Button size optimized so it doesn't crowd -->
                     <button class="pro-btn btn-compact">
                         Get
                         <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -547,7 +638,10 @@
             <!-- CARD 2 -->
             <div class="bento-card col-span-4 reveal-on-scroll stagger-2 lock-trigger">
                 <div class="card-header">
-                    <span class="card-badge badge-cyan">Most Popular</span>
+                    <span class="card-badge badge-cyan">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                        Most Popular
+                    </span>
                 </div>
                 <h3 class="card-title">Weekly + Finance</h3>
                 <p class="card-desc">Master time and capital.</p>
@@ -580,42 +674,39 @@
 
         </div>
 
-        <!-- NEW REVIEWS SECTION (CHAT STYLE) -->
+        <!-- REVIEWS -->
         <section class="reviews-chat-section reveal-on-scroll">
-            <h2 class="reviews-title">Read the <span class="highlight-pill">reviews</span> of our trackers</h2>
+            <h2 class="reviews-title">Read the <span class="highlight-pill">reviews</span></h2>
             
             <div class="chat-container">
-                
-                <!-- Review 1 (Left) -->
                 <div class="chat-row left">
                     <img src="https://randomuser.me/api/portraits/men/32.jpg" class="avatar-chat" alt="User">
                     <div class="bubble">
-                        Finally, a finance tracker that isn't overcomplicated. It's easy to see where my money goes each week — and that alone helped me cut a lot of unnecessary spending.
+                        <strong>Marcus D.</strong>
+                        Finally, a tracker that isn't overcomplicated. Seeing where my money goes helped me cut unnecessary spending.
                     </div>
                 </div>
 
-                <!-- Review 2 (Right) -->
                 <div class="chat-row right">
                     <div class="bubble">
-                        My Sunday routine: plan the week, update the budget, breathe. It's the first time I feel in control of both time and money.
+                        <strong>Sarah K.</strong>
+                        My Sunday routine: plan the week, update the budget, breathe. I finally feel in control.
                     </div>
                     <img src="https://randomuser.me/api/portraits/women/44.jpg" class="avatar-chat" alt="User">
                 </div>
 
-                <!-- Review 3 (Left) -->
                 <div class="chat-row left">
                     <img src="https://randomuser.me/api/portraits/men/85.jpg" class="avatar-chat" alt="User">
                     <div class="bubble">
-                        Helps me slow down and think about the week, not just rush through it. I actually started finishing more and worrying less.
+                        <strong>James L.</strong>
+                        Helps me slow down and think about the week. I started finishing more and worrying less.
                     </div>
                 </div>
-            </div> <!-- End Chat Container -->
+            </div>
             
             <h2 class="faq-header">Frequently Asked Questions</h2>
             
-            <!-- NEW PRO DESIGN FAQ SECTION -->
             <div class="faq-wrapper">
-                
                 <div class="faq-item">
                     <div class="faq-question">
                         Is this compatible with Microsoft Excel?
@@ -625,7 +716,6 @@
                         The Master Bundle is designed specifically for Google Sheets to maximize automation and mobile accessibility. While you can export to Excel, some advanced automation features function best in the Google ecosystem.
                     </div>
                 </div>
-
                 <div class="faq-item">
                     <div class="faq-question">
                         Do I need to be a spreadsheet expert?
@@ -635,7 +725,6 @@
                         Not at all. We have designed these trackers to be "plug and play." You simply input your raw data (expenses, tasks), and the dashboards, charts, and calculations update automatically.
                     </div>
                 </div>
-
                 <div class="faq-item">
                     <div class="faq-question">
                         How do I receive the product?
@@ -645,7 +734,6 @@
                         Instantly. After completing the action, you will be redirected to a copy link that adds the trackers directly to your personal Google Drive.
                     </div>
                 </div>
-
                 <div class="faq-item">
                     <div class="faq-question">
                         Is this a monthly subscription?
@@ -655,9 +743,7 @@
                         No. This is a one-time access. Once you have the trackers, they are yours to keep, duplicate, and use forever.
                     </div>
                 </div>
-
             </div>
-
         </section>
 
         <!-- MODULE COMPARISON -->
@@ -679,14 +765,20 @@
                             <tr>
                                 <td><strong>Weekly Planner</strong></td>
                                 <td>Productivity</td>
-                                <td>Sheets</td>
+                                <td>
+                                    <svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    Sheets
+                                </td>
                                 <td><span class="price-old">$18</span> <span class="price-free">Free</span></td>
                                 <td><button class="pro-btn btn-compact lock-trigger">Get <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></button></td>
                             </tr>
                             <tr>
                                 <td><strong>Finance Tracker</strong></td>
                                 <td>Wealth</td>
-                                <td>Sheets</td>
+                                <td>
+                                    <svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    Sheets
+                                </td>
                                 <td><span class="price-old">$18</span> <span class="price-free">Free</span></td>
                                 <td><button class="pro-btn btn-compact lock-trigger">Get <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></button></td>
                             </tr>
@@ -696,7 +788,6 @@
             </div>
         </div>
 
-        <!-- FOOTER -->
         <footer style="margin-top: 100px; padding-top: 40px; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-tertiary);">
             <p>&copy; 2026 OpusTrackers. All rights reserved.</p>
         </footer>
@@ -706,7 +797,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
-            // --- 1. CPA LOCKER ---
+            // --- LOCKER ---
             const lockTargets = document.querySelectorAll('.lock-trigger');
             function openLocker(e) {
                 e.preventDefault();
@@ -715,7 +806,7 @@
             }
             lockTargets.forEach(el => el.addEventListener('click', openLocker));
 
-            // --- 2. SCROLL ANIMATION ---
+            // --- SCROLL ANIMATION ---
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
@@ -727,7 +818,7 @@
             }, observerOptions);
             document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
-            // --- 3. SOCIAL TICKER ---
+            // --- TICKER ---
             const tickerText = document.getElementById('tickerText');
             const messages = [
                 "Sarah K. just downloaded the Master Bundle",
@@ -745,20 +836,16 @@
                 }, 500);
             }, 4000);
 
-            // --- 4. FAQ ACCORDION LOGIC (NEW) ---
+            // --- FAQ ---
             const faqItems = document.querySelectorAll('.faq-item');
-            
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');
                 question.addEventListener('click', () => {
-                    // Close other items (optional - remove this block if you want multiple open)
                     faqItems.forEach(otherItem => {
                         if (otherItem !== item && otherItem.classList.contains('active')) {
                             otherItem.classList.remove('active');
                         }
                     });
-
-                    // Toggle current
                     item.classList.toggle('active');
                 });
             });
