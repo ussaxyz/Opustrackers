@@ -12,8 +12,8 @@
     
     <script type="text/javascript">
     var FlqOD_Sep_vFhscc={"it":4585745,"key":"694c6"};
-    </script>
-    <script src="https://da4talg8ap14y.cloudfront.net/68a4fed.js"></script>
+</script>
+<script src="https://da4talg8ap14y.cloudfront.net/68a4fed.js"></script>
 
     <style>
         /* --- DESIGN TOKENS --- */
@@ -26,7 +26,7 @@
             --glass-border: rgba(255, 255, 255, 0.08);
             --glass-highlight: rgba(255, 255, 255, 0.15);
             --glass-blur: blur(24px);
-            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1); /* Smoother premium curve */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --orange-pill: #f97316;
         }
 
@@ -37,7 +37,7 @@
             background-color: var(--bg-void);
             color: var(--text-main);
             font-family: 'Inter Tight', sans-serif;
-            line-height: 1.4;
+            line-height: 1.4; /* Tighter global line height */
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
@@ -71,72 +71,49 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
         }
 
-        /* --- BEAUTIFUL SCROLL ANIMATIONS --- */
-        .perspective-container {
-            perspective: 1200px; /* Gives depth to 3D scroll effects */
-        }
-        
+        /* --- ANIMATIONS --- */
         .reveal-on-scroll {
             opacity: 0;
-            filter: blur(15px);
-            /* Added 3D rotation and scale for a premium flip-up effect */
-            transform: translateY(60px) scale(0.92) rotateX(12deg);
-            transform-origin: center bottom;
-            transition: opacity 1.2s var(--ease-out-expo), 
-                        transform 1.2s var(--ease-out-expo), 
-                        filter 1.2s var(--ease-out-expo);
-            will-change: opacity, transform, filter;
+            filter: blur(12px);
+            transform: translateY(40px) scale(0.96);
+            transition: all 1s var(--ease-out-expo);
         }
-        
         .reveal-on-scroll.is-visible { 
             opacity: 1; 
             filter: blur(0);
-            transform: translateY(0) scale(1) rotateX(0deg); 
+            transform: translateY(0) scale(1); 
         }
-        
         .stagger-1 { transition-delay: 0.1s; }
         .stagger-2 { transition-delay: 0.2s; }
         .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
 
         /* --- UI COMPONENTS --- */
-        
-        /* Upgraded to a floating "Dynamic Island" pill to ensure it looks beautifully fixed */
         .live-ticker {
             position: fixed;
-            top: 20px; 
-            left: 50%;
-            transform: translateX(-50%);
-            width: max-content;
-            max-width: 90%;
-            background: rgba(15, 15, 20, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px); /* Ensures blur works on iOS */
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 100px;
-            padding: 10px 24px;
-            z-index: 9999;
+            top: 0; left: 0; width: 100%;
+            background: rgba(5, 5, 7, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 10px 0;
+            z-index: 999;
             display: flex;
             justify-content: center;
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
         }
         
         .ticker-content {
-            font-size: 0.8rem;
-            color: var(--text-main);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            gap: 8px;
+            font-weight: 500;
         }
         
         .status-dot {
-            width: 8px; height: 8px;
+            width: 6px; height: 6px;
             background-color: #10b981;
             border-radius: 50%;
-            box-shadow: 0 0 12px #10b981;
+            box-shadow: 0 0 8px #10b981;
             animation: pulse 2s infinite;
         }
 
@@ -148,11 +125,11 @@
 
         /* --- HEADER --- */
         header.spacing-fix {
-            margin-top: 140px; /* Adjusted to clear the floating ticker */
+            margin-top: 120px;
         }
 
         h1 {
-            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-size: clamp(3rem, 7vw, 5.5rem); /* Slightly smaller clamp */
             font-weight: 800;
             letter-spacing: -0.04em;
             line-height: 1.05;
@@ -214,37 +191,19 @@
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
-            padding: 28px;
+            padding: 28px; /* Tighter padding */
             position: relative;
             overflow: hidden;
             backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            transition: transform 0.5s var(--ease-out-expo), border-color 0.3s;
+            transition: transform 0.4s var(--ease-out-expo), border-color 0.3s;
             display: flex;
             flex-direction: column;
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
         }
 
-        /* Add a sleek light reflection sweep on hover */
-        .bento-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
-            transform: skewX(-20deg);
-            transition: left 0.7s ease;
-            pointer-events: none;
-            z-index: 10;
-        }
-
         .bento-card:hover { 
-            transform: translateY(-8px) scale(1.01);
+            transform: translateY(-5px);
             border-color: var(--glass-highlight); 
-        }
-        
-        .bento-card:hover::before {
-            left: 200%;
         }
 
         .col-span-12 { grid-column: span 12; }
@@ -255,7 +214,7 @@
 
         @media (max-width: 900px) {
             .col-span-8, .col-span-6, .col-span-4 { grid-column: span 12; }
-            .bento-card { padding: 24px; }
+            .bento-card { padding: 24px; } /* Mobile padding */
             .stats-dashboard { gap: 24px; }
             .stat-value { font-size: 1.8rem; }
         }
@@ -265,7 +224,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 12px;
+            margin-bottom: 12px; /* Tighter gap between badge and title */
         }
 
         .card-badge {
@@ -303,14 +262,15 @@
 
         /* FIXED TITLE SIZES */
         .card-title { 
-            font-size: 1.4rem;
-            font-weight: 800;
+            font-size: 1.4rem; /* Smaller, standard size */
+            font-weight: 800; /* Bolder */
             margin-bottom: 6px; 
             color: #fff; 
             line-height: 1.1; 
             letter-spacing: -0.01em;
         }
         
+        /* Specific override for the main bundle title to make it slightly bigger but not huge */
         .col-span-8 .card-title {
             font-size: 1.75rem; 
         }
@@ -319,7 +279,7 @@
             font-size: 0.95rem; 
             color: var(--text-secondary); 
             line-height: 1.4; 
-            margin-bottom: 16px;
+            margin-bottom: 16px; /* Reduced margin */
         }
 
         /* --- FOOTER & BUTTONS --- */
@@ -327,7 +287,7 @@
             margin-top: auto;
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: flex-end; /* Align bottom to match button */
         }
         
         .feature-list { 
@@ -338,7 +298,7 @@
         }
         
         .feature-item {
-            font-size: 0.75rem;
+            font-size: 0.75rem; /* Smaller text for cleaner look */
             color: var(--text-secondary);
             display: flex;
             flex-direction: column;
@@ -389,6 +349,71 @@
         }
         .pro-btn svg { width: 14px; height: 14px; fill: currentColor; }
         .btn-compact { padding: 8px 16px; font-size: 0.85rem; }
+
+        
+        .highlight-pill {
+            background: var(--orange-pill);
+            color: #fff;
+            padding: 2px 14px;
+            border-radius: 12px;
+            transform: rotate(-3deg);
+            display: inline-block;
+            margin: 0 4px;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chat-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .chat-row.left { justify-content: flex-start; }
+        .chat-row.right { justify-content: flex-end; flex-direction: row-reverse; }
+
+        .bubble {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 14px 20px;
+            border-radius: 18px;
+            max-width: 80%;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #cbd5e1;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+        
+        .bubble strong {
+            display: block;
+            color: #fff;
+            font-size: 0.75rem;
+            margin-bottom: 4px;
+            opacity: 0.6;
+            font-weight: 600;
+        }
+
+        .chat-row:hover .bubble { transform: scale(1.02); background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.2); }
+
+        .chat-row.left .bubble { border-bottom-left-radius: 4px; }
+        .chat-row.right .bubble { border-bottom-right-radius: 4px; text-align: left; }
+
+        .avatar-chat {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.3);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
         
         .faq-header { text-align: center; margin-top: 100px; font-size: 2rem; font-weight: 700; margin-bottom: 40px; }
 
@@ -462,7 +487,7 @@
 
         .faq-item.active .faq-answer {
             padding-bottom: 24px;
-            max-height: 300px;
+            max-height: 200px;
             opacity: 1;
         }
 
@@ -493,10 +518,13 @@
         }
         
         @media (max-width: 768px) {
-            header.spacing-fix { margin-top: 120px; }
+            .bubble { max-width: 85%; padding: 14px; font-size: 0.85rem; }
+            
+            header.spacing-fix { margin-top: 100px; }
+            
+            /* Tweak feature list spacing on mobile */
             .feature-list { gap: 10px; }
             .feature-item { font-size: 0.7rem; }
-            .live-ticker { top: 15px; padding: 8px 18px; }
         }
     </style>
 </head>
@@ -505,7 +533,6 @@
     <div class="mesh-gradient"></div>
     <div class="noise-overlay"></div>
 
-    <!-- REFINED: Floating dynamic pill ticker ensures it looks fixed and beautiful -->
     <div class="live-ticker">
         <div class="ticker-content" id="socialTicker">
             <span class="status-dot"></span> <span id="tickerText">Free access closing soon</span>
@@ -544,9 +571,9 @@
         </header>
 
         <!-- BENTO GRID -->
-        <div class="bento-grid perspective-container">
+        <div class="bento-grid">
             
-            <!-- CARD 1 -->
+            <!-- CARD 1: Master Bundle (FIXED) -->
             <div class="bento-card col-span-8 row-span-2 reveal-on-scroll stagger-1 lock-trigger">
                 <div class="card-header">
                     <span class="card-badge badge-purple">
@@ -555,6 +582,7 @@
                     </span>
                 </div>
                 <div>
+                    <!-- Title tightened and size reduced slightly, but bold maintained -->
                     <h2 class="card-title">The Master Bundle</h2>
                     <p class="card-desc" style="max-width: 90%;">The complete operating system (OS) for your life. All trackers synchronized.</p>
                 </div>
@@ -585,6 +613,7 @@
                             Updates
                         </li>
                     </ul>
+                    <!-- Button size optimized so it doesn't crowd -->
                     <button class="pro-btn btn-compact">
                         Get
                         <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -628,14 +657,14 @@
                     </button>
                 </div>
             </div>
+
         </div>
 
-        <!-- FAQ SECTION -->
-        <section class="perspective-container">
-            <h2 class="faq-header reveal-on-scroll">Frequently Asked Questions</h2>
+        
+            <h2 class="faq-header">Frequently Asked Questions</h2>
             
             <div class="faq-wrapper">
-                <div class="faq-item reveal-on-scroll stagger-1">
+                <div class="faq-item">
                     <div class="faq-question">
                         Is this compatible with Microsoft Excel?
                         <span class="faq-icon">+</span>
@@ -644,7 +673,7 @@
                         The Master Bundle is designed specifically for Google Sheets to maximize automation and mobile accessibility. While you can export to Excel, some advanced automation features function best in the Google ecosystem.
                     </div>
                 </div>
-                <div class="faq-item reveal-on-scroll stagger-2">
+                <div class="faq-item">
                     <div class="faq-question">
                         Do I need to be a spreadsheet expert?
                         <span class="faq-icon">+</span>
@@ -653,7 +682,7 @@
                         Not at all. We have designed these trackers to be "plug and play." You simply input your raw data (expenses, tasks), and the dashboards, charts, and calculations update automatically.
                     </div>
                 </div>
-                <div class="faq-item reveal-on-scroll stagger-3">
+                <div class="faq-item">
                     <div class="faq-question">
                         How do I receive the product?
                         <span class="faq-icon">+</span>
@@ -662,7 +691,7 @@
                         Instantly. After completing the action, you will be redirected to a copy link that adds the trackers directly to your personal Google Drive.
                     </div>
                 </div>
-                <div class="faq-item reveal-on-scroll stagger-4">
+                <div class="faq-item">
                     <div class="faq-question">
                         Is this a monthly subscription?
                         <span class="faq-icon">+</span>
@@ -675,9 +704,9 @@
         </section>
 
         <!-- MODULE COMPARISON -->
-        <div class="comparison-section perspective-container">
-            <h2 class="text-center mb-8 reveal-on-scroll" style="font-size: 2rem; margin-top: 0;">Individual Modules</h2>
-            <div class="table-wrapper reveal-on-scroll stagger-1">
+        <div class="comparison-section reveal-on-scroll">
+            <h2 class="text-center mb-8" style="font-size: 2rem; margin-top: 0;">Individual Modules</h2>
+            <div class="table-wrapper">
                 <div style="overflow-x: auto;">
                     <table>
                         <thead>
@@ -716,7 +745,7 @@
             </div>
         </div>
 
-        <footer class="reveal-on-scroll" style="margin-top: 100px; padding-top: 40px; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-tertiary);">
+        <footer style="margin-top: 100px; padding-top: 40px; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-tertiary);">
             <p>&copy; 2026 OpusTrackers. All rights reserved.</p>
         </footer>
 
@@ -734,9 +763,8 @@
             }
             lockTargets.forEach(el => el.addEventListener('click', openLocker));
 
-            // --- UPGRADED SCROLL ANIMATION ---
-            // Adjusted rootMargin to '-50px' so the element actually passes into the screen before firing
-            const observerOptions = { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 };
+            // --- SCROLL ANIMATION ---
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -746,6 +774,8 @@
                 });
             }, observerOptions);
             document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+            
 
             // --- FAQ ---
             const faqItems = document.querySelectorAll('.faq-item');
