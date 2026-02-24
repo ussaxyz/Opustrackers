@@ -350,21 +350,7 @@
         .pro-btn svg { width: 14px; height: 14px; fill: currentColor; }
         .btn-compact { padding: 8px 16px; font-size: 0.85rem; }
 
-        /* --- REVIEWS --- */
-        .reviews-chat-section {
-            padding: 80px 20px;
-            max-width: 650px;
-            margin: 0 auto;
-        }
         
-        .reviews-title {
-            text-align: center;
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 50px;
-            color: #fff;
-        }
-
         .highlight-pill {
             background: var(--orange-pill);
             color: #fff;
@@ -533,7 +519,7 @@
         
         @media (max-width: 768px) {
             .bubble { max-width: 85%; padding: 14px; font-size: 0.85rem; }
-            .reviews-title { font-size: 2rem; }
+            
             header.spacing-fix { margin-top: 100px; }
             
             /* Tweak feature list spacing on mobile */
@@ -549,7 +535,7 @@
 
     <div class="live-ticker">
         <div class="ticker-content" id="socialTicker">
-            <span class="status-dot"></span> <span id="tickerText">Sarah K. just downloaded the Master Bundle</span>
+            <span class="status-dot"></span> <span id="tickerText">Free access closing soon</span>
         </div>
     </div>
 
@@ -674,36 +660,7 @@
 
         </div>
 
-        <!-- REVIEWS -->
-        <section class="reviews-chat-section reveal-on-scroll">
-            <h2 class="reviews-title">Read the <span class="highlight-pill">reviews</span></h2>
-            
-            <div class="chat-container">
-                <div class="chat-row left">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="avatar-chat" alt="User">
-                    <div class="bubble">
-                        <strong>Marcus D.</strong>
-                        Finally, a tracker that isn't overcomplicated. Seeing where my money goes helped me cut unnecessary spending.
-                    </div>
-                </div>
-
-                <div class="chat-row right">
-                    <div class="bubble">
-                        <strong>Sarah K.</strong>
-                        My Sunday routine: plan the week, update the budget, breathe. I finally feel in control.
-                    </div>
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="avatar-chat" alt="User">
-                </div>
-
-                <div class="chat-row left">
-                    <img src="https://randomuser.me/api/portraits/men/85.jpg" class="avatar-chat" alt="User">
-                    <div class="bubble">
-                        <strong>James L.</strong>
-                        Helps me slow down and think about the week. I started finishing more and worrying less.
-                    </div>
-                </div>
-            </div>
-            
+        
             <h2 class="faq-header">Frequently Asked Questions</h2>
             
             <div class="faq-wrapper">
@@ -818,23 +775,7 @@
             }, observerOptions);
             document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
-            // --- TICKER ---
-            const tickerText = document.getElementById('tickerText');
-            const messages = [
-                "Sarah K. just downloaded the Master Bundle",
-                "32 people are viewing the Weekly Planner",
-                "Marcus D. rated OpusTrackers 5 stars",
-                "Free access closing soon"
-            ];
-            let msgIndex = 0;
-            setInterval(() => {
-                msgIndex = (msgIndex + 1) % messages.length;
-                tickerText.style.opacity = 0;
-                setTimeout(() => {
-                    tickerText.innerText = messages[msgIndex];
-                    tickerText.style.opacity = 1;
-                }, 500);
-            }, 4000);
+            
 
             // --- FAQ ---
             const faqItems = document.querySelectorAll('.faq-item');
