@@ -26,7 +26,7 @@
             --glass-border: rgba(255, 255, 255, 0.08);
             --glass-highlight: rgba(255, 255, 255, 0.15);
             --glass-blur: blur(24px);
-            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1); /* Smoother premium curve */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --orange-pill: #f97316;
         }
 
@@ -71,27 +71,17 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
         }
 
-        /* --- BEAUTIFUL SCROLL ANIMATIONS --- */
-        .perspective-container {
-            perspective: 1200px; /* Gives depth to 3D scroll effects */
-        }
-        
+        /* --- SIMPLE, ELEGANT SCROLL ANIMATION --- */
         .reveal-on-scroll {
             opacity: 0;
-            filter: blur(15px);
-            /* Added 3D rotation and scale for a premium flip-up effect */
-            transform: translateY(60px) scale(0.92) rotateX(12deg);
-            transform-origin: center bottom;
-            transition: opacity 1.2s var(--ease-out-expo), 
-                        transform 1.2s var(--ease-out-expo), 
-                        filter 1.2s var(--ease-out-expo);
-            will-change: opacity, transform, filter;
+            transform: translateY(40px);
+            transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+            will-change: opacity, transform;
         }
         
         .reveal-on-scroll.is-visible { 
             opacity: 1; 
-            filter: blur(0);
-            transform: translateY(0) scale(1) rotateX(0deg); 
+            transform: translateY(0); 
         }
         
         .stagger-1 { transition-delay: 0.1s; }
@@ -101,7 +91,7 @@
 
         /* --- UI COMPONENTS --- */
         
-        /* Upgraded to a floating "Dynamic Island" pill to ensure it looks beautifully fixed */
+        /* Floating "Dynamic Island" style - Stays fixed perfectly */
         .live-ticker {
             position: fixed;
             top: 20px; 
@@ -109,17 +99,16 @@
             transform: translateX(-50%);
             width: max-content;
             max-width: 90%;
-            background: rgba(15, 15, 20, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px); /* Ensures blur works on iOS */
+            background: rgba(15, 15, 20, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 100px;
             padding: 10px 24px;
             z-index: 9999;
             display: flex;
             justify-content: center;
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8);
         }
         
         .ticker-content {
@@ -129,14 +118,13 @@
             align-items: center;
             gap: 10px;
             font-weight: 600;
-            letter-spacing: 0.5px;
         }
         
         .status-dot {
             width: 8px; height: 8px;
             background-color: #10b981;
             border-radius: 50%;
-            box-shadow: 0 0 12px #10b981;
+            box-shadow: 0 0 10px #10b981;
             animation: pulse 2s infinite;
         }
 
@@ -148,7 +136,7 @@
 
         /* --- HEADER --- */
         header.spacing-fix {
-            margin-top: 140px; /* Adjusted to clear the floating ticker */
+            margin-top: 120px; /* Space for the floating ticker */
         }
 
         h1 {
@@ -218,33 +206,15 @@
             position: relative;
             overflow: hidden;
             backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            transition: transform 0.5s var(--ease-out-expo), border-color 0.3s;
+            transition: transform 0.4s var(--ease-out-expo), border-color 0.3s;
             display: flex;
             flex-direction: column;
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
         }
 
-        /* Add a sleek light reflection sweep on hover */
-        .bento-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
-            transform: skewX(-20deg);
-            transition: left 0.7s ease;
-            pointer-events: none;
-            z-index: 10;
-        }
-
         .bento-card:hover { 
-            transform: translateY(-8px) scale(1.01);
+            transform: translateY(-5px);
             border-color: var(--glass-highlight); 
-        }
-        
-        .bento-card:hover::before {
-            left: 200%;
         }
 
         .col-span-12 { grid-column: span 12; }
@@ -301,7 +271,6 @@
         }
         .bento-card:hover img { transform: scale(1.08); }
 
-        /* FIXED TITLE SIZES */
         .card-title { 
             font-size: 1.4rem;
             font-weight: 800;
@@ -493,7 +462,7 @@
         }
         
         @media (max-width: 768px) {
-            header.spacing-fix { margin-top: 120px; }
+            header.spacing-fix { margin-top: 100px; }
             .feature-list { gap: 10px; }
             .feature-item { font-size: 0.7rem; }
             .live-ticker { top: 15px; padding: 8px 18px; }
@@ -505,7 +474,7 @@
     <div class="mesh-gradient"></div>
     <div class="noise-overlay"></div>
 
-    <!-- REFINED: Floating dynamic pill ticker ensures it looks fixed and beautiful -->
+    <!-- Fixed dynamic pill ticker -->
     <div class="live-ticker">
         <div class="ticker-content" id="socialTicker">
             <span class="status-dot"></span> <span id="tickerText">Free access closing soon</span>
@@ -544,7 +513,7 @@
         </header>
 
         <!-- BENTO GRID -->
-        <div class="bento-grid perspective-container">
+        <div class="bento-grid">
             
             <!-- CARD 1 -->
             <div class="bento-card col-span-8 row-span-2 reveal-on-scroll stagger-1 lock-trigger">
@@ -628,10 +597,11 @@
                     </button>
                 </div>
             </div>
+
         </div>
 
-        <!-- FAQ SECTION -->
-        <section class="perspective-container">
+        <!-- FAQ -->
+        <section>
             <h2 class="faq-header reveal-on-scroll">Frequently Asked Questions</h2>
             
             <div class="faq-wrapper">
@@ -675,9 +645,9 @@
         </section>
 
         <!-- MODULE COMPARISON -->
-        <div class="comparison-section perspective-container">
-            <h2 class="text-center mb-8 reveal-on-scroll" style="font-size: 2rem; margin-top: 0;">Individual Modules</h2>
-            <div class="table-wrapper reveal-on-scroll stagger-1">
+        <div class="comparison-section reveal-on-scroll">
+            <h2 class="text-center mb-8" style="font-size: 2rem; margin-top: 0;">Individual Modules</h2>
+            <div class="table-wrapper">
                 <div style="overflow-x: auto;">
                     <table>
                         <thead>
@@ -734,8 +704,8 @@
             }
             lockTargets.forEach(el => el.addEventListener('click', openLocker));
 
-            // --- UPGRADED SCROLL ANIMATION ---
-            // Adjusted rootMargin to '-50px' so the element actually passes into the screen before firing
+            // --- SIMPLE SCROLL ANIMATION ---
+            // Added rootMargin so animations happen slightly before/as elements enter view
             const observerOptions = { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 };
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
@@ -745,6 +715,7 @@
                     }
                 });
             }, observerOptions);
+            
             document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
             // --- FAQ ---
